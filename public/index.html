@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinema Room - Watch Together</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            background: #000;
+        }
+
+        #info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            z-index: 100;
+            max-width: 300px;
+        }
+
+        #info h3 {
+            margin-bottom: 10px;
+            color: #4CAF50;
+        }
+
+        #info p {
+            margin: 5px 0;
+            line-height: 1.4;
+        }
+
+        #video-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            z-index: 100;
+            display: none;
+        }
+
+        #video-controls.visible {
+            display: block;
+        }
+
+        #video-controls button {
+            margin: 0 5px;
+            padding: 10px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        #video-controls button:hover {
+            background: #45a049;
+        }
+
+        #video-url-input {
+            width: 400px;
+            padding: 10px;
+            margin-right: 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 14px;
+        }
+
+        .crosshair {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        .crosshair::before,
+        .crosshair::after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .crosshair::before {
+            width: 2px;
+            height: 20px;
+            left: 9px;
+        }
+
+        .crosshair::after {
+            width: 20px;
+            height: 2px;
+            top: 9px;
+        }
+
+        #interaction-prompt {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            display: none;
+            z-index: 50;
+        }
+    </style>
+</head>
+<body>
+    <div id="info">
+        <h3>🎬 Cinema Room</h3>
+        <p><strong>Controls:</strong></p>
+        <p>• WASD - Move</p>
+        <p>• SPACE - Jump</p>
+        <p>• Mouse - Look around</p>
+        <p>• E - Sit on sofa</p>
+        <p>• Click to lock mouse</p>
+        <p id="player-count">Players: 1</p>
+    </div>
+
+    <div class="crosshair"></div>
+    <div id="interaction-prompt">Press E to sit</div>
+
+    <div id="video-controls">
+        <input type="text" id="video-url-input" placeholder="Enter video URL (YouTube, direct MP4, etc.)">
+        <button id="load-video">Load Video</button>
+        <button id="play-pause">Play</button>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+    <script type="module" src="game.js"></script>
+</body>
+</html>
