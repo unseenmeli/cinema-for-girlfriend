@@ -40,45 +40,59 @@
             line-height: 1.4;
         }
 
-        #video-controls {
+        #countdown-display {
             position: absolute;
-            bottom: 20px;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.8);
-            padding: 15px;
-            border-radius: 8px;
-            z-index: 100;
-            display: none;
-        }
-
-        #video-controls.visible {
-            display: block;
-        }
-
-        #video-controls button {
-            margin: 0 5px;
-            padding: 10px 20px;
-            background: #4CAF50;
+            transform: translate(-50%, -50%);
+            font-size: 120px;
+            font-weight: bold;
             color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
+            text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            z-index: 200;
+            display: none;
+            pointer-events: none;
         }
 
-        #video-controls button:hover {
-            background: #45a049;
+        #romantic-messages-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 150;
+            pointer-events: none;
+            overflow: hidden;
         }
 
-        #video-url-input {
-            width: 400px;
-            padding: 10px;
-            margin-right: 10px;
-            border-radius: 5px;
-            border: none;
-            font-size: 14px;
+        .falling-text {
+            position: absolute;
+            font-size: 28px;
+            color: white;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+            font-family: 'Georgia', serif;
+            white-space: nowrap;
+            pointer-events: none;
+            animation: fall linear forwards;
         }
+
+        @keyframes fall {
+            0% {
+                top: -10%;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                top: 110%;
+                opacity: 0;
+            }
+        }
+
 
         .crosshair {
             position: absolute;
@@ -140,11 +154,9 @@
     <div class="crosshair"></div>
     <div id="interaction-prompt">Press E to sit</div>
 
-    <div id="video-controls">
-        <input type="text" id="video-url-input" placeholder="Enter video URL (YouTube, direct MP4, etc.)">
-        <button id="load-video">Load Video</button>
-        <button id="play-pause">Play</button>
-    </div>
+    <div id="countdown-display"></div>
+
+    <div id="romantic-messages-container"></div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script type="importmap">
